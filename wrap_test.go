@@ -30,7 +30,7 @@ func TestWrapWithRegister(t *testing.T) {
 				if ok {
 					rec.Add("key1", val)
 				}
-				return nil
+				return orig(ctx, rec)
 			}
 		},
 	)
@@ -41,37 +41,35 @@ func TestWrapWithRegister(t *testing.T) {
 		return logger, buf
 	}
 
-	t.Run("no value in context", func(t *testing.T) {
-		logger, buf := newLoggerAndBuf()
-		slog.SetDefault(logger)
-		ctx := context.Background()
-		logging(ctx)
-		d := map[string]any{}
-		err := json.Unmarshal(buf.Bytes(), &d)
-		assert.NoError(t, err)
-		d["key1"] = nil
-	})
+	type pattern struct {
+		ctx       context.Context
+		key1Value *string
+		name      string
+	}
 
-	t.Run("value in context", func(t *testing.T) {
-		logger, buf := newLoggerAndBuf()
-		slog.SetDefault(logger)
-		baseCtx := context.Background()
-		t.Run("value1", func(t *testing.T) {
-			ctx := addKeyValue(baseCtx, "value1")
-			logging(ctx)
+	strPtr := func(s string) *string {
+		return &s
+	}
+
+	patterns := []pattern{
+		{context.Background(), nil, "no value"},
+		{addKeyValue(context.Background(), "value1"), strPtr("value1"), "value1"},
+		{addKeyValue(context.Background(), "value2"), strPtr("value2"), "value2"},
+	}
+	for _, ptn := range patterns {
+		t.Run(ptn.name, func(t *testing.T) {
+			logger, buf := newLoggerAndBuf()
+			slog.SetDefault(logger)
+			logging(ptn.ctx)
 			d := map[string]any{}
+			t.Logf("buf: %s\n", buf.String())
 			err := json.Unmarshal(buf.Bytes(), &d)
 			assert.NoError(t, err)
-			assert.Equal(t, "value1", d["key1"])
+			if ptn.key1Value == nil {
+				assert.Nil(t, d["key1"])
+			} else {
+				assert.Equal(t, *ptn.key1Value, d["key1"])
+			}
 		})
-		t.Run("value2", func(t *testing.T) {
-			ctx := addKeyValue(baseCtx, "value2")
-			logging(ctx)
-			d := map[string]any{}
-			err := json.Unmarshal(buf.Bytes(), &d)
-			assert.NoError(t, err)
-			assert.Equal(t, "value2", d["key1"])
-		})
-	})
-
+	}
 }
