@@ -13,5 +13,5 @@ func WrapHandler(h slog.Handler) slog.Handler {
 }
 
 func Register(f func(HandleFunc) HandleFunc) {
-	RegisterWrapFunc(NewHandleWrapFunc(f))
+	RegisterWrapFunc(NewWrapFunc(f))
 }
