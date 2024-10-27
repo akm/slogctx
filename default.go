@@ -4,7 +4,7 @@ import "log/slog"
 
 var defaultWrapFuncs WrapFuncs
 
-func RegisterHandleTransformFunc(f WrapFunc) {
+func RegisterWrapFunc(f WrapFunc) {
 	defaultWrapFuncs = append(defaultWrapFuncs, f)
 }
 
@@ -13,5 +13,5 @@ func WrapHandler(h slog.Handler) slog.Handler {
 }
 
 func Register(f func(HandleFunc) HandleFunc) {
-	RegisterHandleTransformFunc(NewHandleWrapFunc(f))
+	RegisterWrapFunc(NewHandleWrapFunc(f))
 }
