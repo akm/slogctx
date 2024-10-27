@@ -14,7 +14,7 @@ type handleWrapper struct {
 
 var _ slog.Handler = (*handleWrapper)(nil)
 
-func NewHandleTransformFunc(fn func(orig HandleFunc) HandleFunc) TransformFunc {
+func NewHandleTransformFunc(fn func(orig HandleFunc) HandleFunc) WrapFunc {
 	return func(h slog.Handler) slog.Handler {
 		handle := fn(h.Handle)
 		return &handleWrapper{Handler: h, handle: handle}

@@ -4,7 +4,7 @@ import "log/slog"
 
 var defaultTransformFuncs TransformFuncs
 
-func RegisterHandleTransformFunc(f TransformFunc) {
+func RegisterHandleTransformFunc(f WrapFunc) {
 	defaultTransformFuncs = append(defaultTransformFuncs, f)
 }
 
