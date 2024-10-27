@@ -2,14 +2,14 @@ package slogw
 
 import "log/slog"
 
-var defaultTransformFuncs WrapFuncs
+var defaultWrapFuncs WrapFuncs
 
 func RegisterHandleTransformFunc(f WrapFunc) {
-	defaultTransformFuncs = append(defaultTransformFuncs, f)
+	defaultWrapFuncs = append(defaultWrapFuncs, f)
 }
 
 func WrapHandler(h slog.Handler) slog.Handler {
-	return defaultTransformFuncs.Wrap(h)
+	return defaultWrapFuncs.Wrap(h)
 }
 
 func Register(f func(HandleFunc) HandleFunc) {
