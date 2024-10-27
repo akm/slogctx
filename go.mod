@@ -1,4 +1,4 @@
-module github.com/akm/slogwrap
+module github.com/akm/slogw
 
 go 1.21.13
 
