@@ -1,4 +1,4 @@
-package slogwrap
+package slogw
 
 import (
 	"bytes"
@@ -22,7 +22,7 @@ func TestWrapWithRegister(t *testing.T) {
 		return context.WithValue(ctx, ctxKey1, v)
 	}
 
-	defaultTransformFuncs = nil
+	defaultWrapFuncs = nil
 	Register(
 		func(orig HandleFunc) HandleFunc {
 			return func(ctx context.Context, rec slog.Record) error {
