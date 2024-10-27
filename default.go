@@ -2,7 +2,7 @@ package slogw
 
 import "log/slog"
 
-var defaultTransformFuncs TransformFuncs
+var defaultTransformFuncs WrapFuncs
 
 func RegisterHandleTransformFunc(f WrapFunc) {
 	defaultTransformFuncs = append(defaultTransformFuncs, f)

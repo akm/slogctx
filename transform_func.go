@@ -4,9 +4,9 @@ import "log/slog"
 
 type WrapFunc = func(slog.Handler) slog.Handler
 
-type TransformFuncs []WrapFunc
+type WrapFuncs []WrapFunc
 
-func (fns TransformFuncs) Wrap(h slog.Handler) slog.Handler {
+func (fns WrapFuncs) Wrap(h slog.Handler) slog.Handler {
 	for i := len(fns) - 1; i >= 0; i-- {
 		h = fns[i](h)
 	}
