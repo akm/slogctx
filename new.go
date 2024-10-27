@@ -3,5 +3,5 @@ package slogw
 import "log/slog"
 
 func New(h slog.Handler) *slog.Logger {
-	return slog.New(WrapHandler(h))
+	return slog.New(Wrap(h))
 }
