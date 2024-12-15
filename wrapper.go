@@ -5,8 +5,6 @@ import (
 	"log/slog"
 )
 
-type HandleFunc = func(context.Context, slog.Record) error
-
 type wrapper struct {
 	slog.Handler
 	handle HandleFunc
