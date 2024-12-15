@@ -1,5 +1,7 @@
 package slogw
 
+import "log/slog"
+
 var defaultFactory = &Factory{}
 
 func RegisterHandlerWrapFunc(f HandlerWrapFunc) {
@@ -8,4 +10,12 @@ func RegisterHandlerWrapFunc(f HandlerWrapFunc) {
 
 func Register(f func(HandleFunc) HandleFunc) {
 	defaultFactory.Register(f)
+}
+
+func Wrap(h slog.Handler) slog.Handler {
+	return defaultFactory.Wrap(h)
+}
+
+func New(h slog.Handler) *slog.Logger {
+	return slog.New(Wrap(h))
 }
