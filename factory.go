@@ -2,19 +2,19 @@ package slogw
 
 import "log/slog"
 
-type factory struct {
+type Factory struct {
 	HandlerWrapFuncs
 }
 
-func newFactory() *factory {
-	return &factory{}
+func NewFactory() *Factory {
+	return &Factory{}
 }
 
-func (f *factory) RegisterHandlerWrapFunc(fn HandlerWrapFunc) {
+func (f *Factory) RegisterHandlerWrapFunc(fn HandlerWrapFunc) {
 	f.HandlerWrapFuncs = append(f.HandlerWrapFuncs, fn)
 }
 
-func (f *factory) Register(fn HandleFuncWrapFunc) {
+func (f *Factory) Register(fn HandleFuncWrapFunc) {
 	f.RegisterHandlerWrapFunc(newWrapFunc(fn))
 }
 

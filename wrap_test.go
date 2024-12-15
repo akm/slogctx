@@ -22,7 +22,7 @@ func TestWrapWithRegister(t *testing.T) {
 		return context.WithValue(ctx, ctxKey1, v)
 	}
 
-	defaultFactory = newFactory()
+	defaultFactory = NewFactory()
 	Register(
 		func(orig HandleFunc) HandleFunc {
 			return func(ctx context.Context, rec slog.Record) error {
