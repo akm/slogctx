@@ -1,20 +1,11 @@
 package slogw
 
-import "log/slog"
-
-var defaultWrapFuncs HandlerWrapFuncs
+var defaultFactory = &factory{}
 
 func RegisterWrapFunc(f HandlerWrapFunc) {
-	defaultWrapFuncs = append(defaultWrapFuncs, f)
+	defaultFactory.RegisterWrapFunc(f)
 }
 
 func Register(f func(HandleFunc) HandleFunc) {
-	RegisterWrapFunc(newWrapFunc(f))
-}
-
-func newWrapFunc(fn func(orig HandleFunc) HandleFunc) HandlerWrapFunc {
-	return func(h slog.Handler) slog.Handler {
-		handle := fn(h.Handle)
-		return &wrapper{Handler: h, handle: handle}
-	}
+	defaultFactory.Register(f)
 }

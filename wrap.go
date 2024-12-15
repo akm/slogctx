@@ -3,7 +3,7 @@ package slogw
 import "log/slog"
 
 func Wrap(h slog.Handler) slog.Handler {
-	return defaultWrapFuncs.Wrap(h)
+	return defaultFactory.Wrap(h)
 }
 
 func New(h slog.Handler) *slog.Logger {
