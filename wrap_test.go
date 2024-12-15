@@ -23,15 +23,13 @@ func TestWrapWithRegister(t *testing.T) {
 	}
 
 	defaultFactory = NewFactory()
-	Register(
-		func(orig HandleFunc) HandleFunc {
-			return func(ctx context.Context, rec slog.Record) error {
-				val, ok := ctx.Value(ctxKey1).(string)
-				if ok {
-					rec.Add("key1", val)
-				}
-				return orig(ctx, rec)
+	RegisterHandlerPrepareFunc(
+		func(ctx context.Context, rec slog.Record) *slog.Record {
+			val, ok := ctx.Value(ctxKey1).(string)
+			if ok {
+				rec.Add("key1", val)
 			}
+			return &rec
 		},
 	)
 

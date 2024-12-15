@@ -14,6 +14,10 @@ func (f *Factory) RegisterHandlerWrapFunc(fn HandlerWrapFunc) {
 	f.HandlerWrapFuncs = append(f.HandlerWrapFuncs, fn)
 }
 
+func (f *Factory) RegisterHandlerPrepareFunc(fn HandlePrepareFunc) {
+	f.RegisterHandlerWrapFunc(newWrapFunc(Prepare(fn)))
+}
+
 func (f *Factory) Register(fn HandleFuncWrapFunc) {
 	f.RegisterHandlerWrapFunc(newWrapFunc(fn))
 }
