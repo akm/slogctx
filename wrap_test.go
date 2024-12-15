@@ -22,18 +22,14 @@ func TestWrapWithRegister(t *testing.T) {
 		return context.WithValue(ctx, ctxKey1, v)
 	}
 
-	defaultWrapFuncs = nil
-	Register(
-		func(orig HandleFunc) HandleFunc {
-			return func(ctx context.Context, rec slog.Record) error {
-				val, ok := ctx.Value(ctxKey1).(string)
-				if ok {
-					rec.Add("key1", val)
-				}
-				return orig(ctx, rec)
-			}
-		},
-	)
+	defaultFactory = NewFactory()
+	Register(func(ctx context.Context, rec slog.Record) *slog.Record {
+		val, ok := ctx.Value(ctxKey1).(string)
+		if ok {
+			rec.Add("key1", val)
+		}
+		return &rec
+	})
 
 	newLoggerAndBuf := func() (*slog.Logger, *bytes.Buffer) {
 		buf := bytes.NewBufferString("")
