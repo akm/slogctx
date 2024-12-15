@@ -1,8 +1,8 @@
 package slogw
 
-var defaultWrapFuncs WrapFuncs
+var defaultWrapFuncs HandlerWrapFuncs
 
-func RegisterWrapFunc(f WrapFunc) {
+func RegisterWrapFunc(f HandlerWrapFunc) {
 	defaultWrapFuncs = append(defaultWrapFuncs, f)
 }
 
