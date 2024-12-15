@@ -8,7 +8,7 @@ func RegisterHandlerWrapFunc(f HandlerWrapFunc) {
 	defaultFactory.RegisterHandlerWrapFunc(f)
 }
 
-func Register(f func(HandleFunc) HandleFunc) {
+func Register(f HandleFuncWrapFunc) {
 	defaultFactory.Register(f)
 }
 
