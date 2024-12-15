@@ -6,6 +6,7 @@ import (
 )
 
 type HandleFunc = func(context.Context, slog.Record) error
+type HandleFuncWrapFunc = func(HandleFunc) HandleFunc
 
 type HandlerWrapFunc = func(slog.Handler) slog.Handler
 
