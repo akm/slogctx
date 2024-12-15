@@ -6,6 +6,10 @@ type factory struct {
 	HandlerWrapFuncs
 }
 
+func newFactory() *factory {
+	return &factory{}
+}
+
 func (f *factory) RegisterHandlerWrapFunc(fn HandlerWrapFunc) {
 	f.HandlerWrapFuncs = append(f.HandlerWrapFuncs, fn)
 }
