@@ -16,7 +16,7 @@ func RegisterHandleFuncWrapFunc(fn HandleFuncWrapFunc) {
 	defaultFactory.RegisterHandleFuncWrapFunc(fn)
 }
 
-func Register(f HandleFuncWrapFunc) {
+func Register(f HandlePrepareFunc) {
 	defaultFactory.Register(f)
 }
 
