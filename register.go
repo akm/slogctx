@@ -9,10 +9,10 @@ func RegisterWrapFunc(f HandlerWrapFunc) {
 }
 
 func Register(f func(HandleFunc) HandleFunc) {
-	RegisterWrapFunc(NewWrapFunc(f))
+	RegisterWrapFunc(newWrapFunc(f))
 }
 
-func NewWrapFunc(fn func(orig HandleFunc) HandleFunc) HandlerWrapFunc {
+func newWrapFunc(fn func(orig HandleFunc) HandleFunc) HandlerWrapFunc {
 	return func(h slog.Handler) slog.Handler {
 		handle := fn(h.Handle)
 		return &wrapper{Handler: h, handle: handle}
