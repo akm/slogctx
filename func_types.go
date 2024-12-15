@@ -1,6 +1,11 @@
 package slogw
 
-import "log/slog"
+import (
+	"context"
+	"log/slog"
+)
+
+type HandleFunc = func(context.Context, slog.Record) error
 
 type HandlerWrapFunc = func(slog.Handler) slog.Handler
 
