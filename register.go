@@ -2,8 +2,8 @@ package slogw
 
 var defaultFactory = &factory{}
 
-func RegisterWrapFunc(f HandlerWrapFunc) {
-	defaultFactory.RegisterWrapFunc(f)
+func RegisterHandlerWrapFunc(f HandlerWrapFunc) {
+	defaultFactory.RegisterHandlerWrapFunc(f)
 }
 
 func Register(f func(HandleFunc) HandleFunc) {
