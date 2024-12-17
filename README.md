@@ -14,12 +14,12 @@ go get github.com/akm/slogw@latest
 You can register your handle function like this:
 
 ```golang
-	slogw.Register(func(ctx context.Context, rec slog.Record) *slog.Record {
+	slogw.Register(func(ctx context.Context, rec slog.Record) slog.Record {
 		val, ok := ctx.Value(ctxKey1).(string)
 		if ok {
 			rec.Add("key1", val)
 		}
-		return &rec
+		return rec
 	})
 ```
 

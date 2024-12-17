@@ -23,12 +23,12 @@ func TestWrapWithRegister(t *testing.T) {
 	}
 
 	defaultFactory = NewFactory()
-	Register(func(ctx context.Context, rec slog.Record) *slog.Record {
+	Register(func(ctx context.Context, rec slog.Record) slog.Record {
 		val, ok := ctx.Value(ctxKey1).(string)
 		if ok {
 			rec.Add("key1", val)
 		}
-		return &rec
+		return rec
 	})
 
 	newLoggerAndBuf := func() (*slog.Logger, *bytes.Buffer) {
