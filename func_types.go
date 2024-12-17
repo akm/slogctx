@@ -8,12 +8,12 @@ import (
 type HandleFunc = func(context.Context, slog.Record) error
 type HandleFuncWrapFunc = func(HandleFunc) HandleFunc
 
-type HandlePrepareFunc = func(context.Context, slog.Record) *slog.Record
+type HandlePrepareFunc = func(context.Context, slog.Record) slog.Record
 
 func Prepare(prepare HandlePrepareFunc) HandleFuncWrapFunc {
 	return func(fn HandleFunc) HandleFunc {
 		return func(ctx context.Context, rec slog.Record) error {
-			return fn(ctx, *prepare(ctx, rec))
+			return fn(ctx, prepare(ctx, rec))
 		}
 	}
 }
