@@ -24,9 +24,10 @@ func namespace() {
 	logger := ns1.New(slog.NewTextHandler(os.Stdout, nil))
 
 	ctx0 := context.Background()
-	ctx1 := context.WithValue(ctx0, ctxKey1, "value1")
+	ctx1 := context.WithValue(ctx0, ctxKey1, "value3")
 	logger.InfoContext(ctx1, "foo")
 
-	ctx2 := context.WithValue(ctx0, ctxKey1, "value2")
-	logger.InfoContext(ctx2, "bar")
+	ctx2 := context.WithValue(ctx0, ctxKey1, "value4")
+	logger.InfoContext(ctx1, "bar")
+	logger.InfoContext(ctx2, "baz")
 }

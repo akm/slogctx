@@ -20,12 +20,14 @@ func basic() {
 		return rec
 	})
 
-	logger := slogw.New(slog.NewTextHandler(os.Stdout, nil))
+	// Set the logger instantiated by slogw.New as the default logger.
+	slog.SetDefault(slogw.New(slog.NewTextHandler(os.Stdout, nil)))
 
 	ctx0 := context.Background()
 	ctx1 := context.WithValue(ctx0, ctxKey1, "value1")
-	logger.InfoContext(ctx1, "foo")
+	slog.InfoContext(ctx1, "foo")
+	slog.InfoContext(ctx1, "bar")
 
 	ctx2 := context.WithValue(ctx0, ctxKey1, "value2")
-	logger.InfoContext(ctx2, "bar")
+	slog.InfoContext(ctx2, "baz")
 }
