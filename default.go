@@ -25,5 +25,5 @@ func Wrap(h slog.Handler) slog.Handler {
 }
 
 func New(h slog.Handler) *slog.Logger {
-	return slog.New(Wrap(h))
+	return defaultNamespace.New(h)
 }
