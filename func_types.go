@@ -28,3 +28,7 @@ func (fns HandlerWrapFuncs) Wrap(h slog.Handler) slog.Handler {
 	}
 	return h
 }
+
+func (fns HandlerWrapFuncs) New(h slog.Handler) *slog.Logger {
+	return slog.New(fns.Wrap(h))
+}
