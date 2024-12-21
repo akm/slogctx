@@ -23,13 +23,24 @@ You can register your handle function like this:
 	})
 ```
 
-And you can get a logger with your handle function.
+And you can get a logger working with your handle function by using `slogw.New` instead of `slog.New` .
 
 ```golang
-    yourHandler := slog.NewJSONHandler(writer, nil)
+    yourHandler := slog.NewTextHandler(writer, nil)
     yourLogger := slogw.New(yourHandler)
 ```
 
 `writer` must be a io.Writer like os.Stdout, bytes.Buffer or etc.
 
-Then yourLogger's logs contain the value named `key1` which is got from ctx by using `ctxKey1`.
+```golang
+	ctx := context.WithValue(context.Background(), ctxKey1, "value1")
+	logger.InfoContext(ctx, "foo")
+```
+
+Then `logger` outputs a log with `foo` as `msg` and `value1` as `key1` like this:
+
+```
+time=2024-12-21T12:18:51.893+09:00 level=INFO msg=foo key1=value1
+```
+
+See [examples/basic.go](./examples/basic.go) and [examlpes/namespace.go](./examples/namespace.go) for more detail.
