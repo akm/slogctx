@@ -44,3 +44,4 @@ time=2024-12-21T12:18:51.893+09:00 level=INFO msg=foo key1=value1
 ```
 
 See [examples/basic.go](./examples/basic.go) and [examlpes/namespace.go](./examples/namespace.go) for more detail.
+Try `go run ./examples` for `go run ./examples/namespace`
