@@ -4,6 +4,14 @@ import "log/slog"
 
 var defaultNamespace = &Namespace{}
 
+func Default() *Namespace {
+	return defaultNamespace
+}
+
+func SetDefault(ns *Namespace) {
+	defaultNamespace = ns
+}
+
 func RegisterHandlerWrapFunc(f HandlerWrapFunc) {
 	defaultNamespace.RegisterHandlerWrapFunc(f)
 }
