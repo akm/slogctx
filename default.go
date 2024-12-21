@@ -2,7 +2,7 @@ package slogw
 
 import "log/slog"
 
-var defaultFactory = &Factory{}
+var defaultFactory = &Namespace{}
 
 func RegisterHandlerWrapFunc(f HandlerWrapFunc) {
 	defaultFactory.RegisterHandlerWrapFunc(f)
