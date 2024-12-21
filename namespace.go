@@ -6,7 +6,7 @@ type Namespace struct {
 	HandlerWrapFuncs
 }
 
-func NewFactory() *Namespace {
+func NewNamespace() *Namespace {
 	return &Namespace{}
 }
 
