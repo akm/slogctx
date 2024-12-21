@@ -22,7 +22,7 @@ func TestWrapWithRegister(t *testing.T) {
 		return context.WithValue(ctx, ctxKey1, v)
 	}
 
-	defaultFactory = NewFactory()
+	defaultNamespace = NewFactory()
 	Register(func(ctx context.Context, rec slog.Record) slog.Record {
 		val, ok := ctx.Value(ctxKey1).(string)
 		if ok {
