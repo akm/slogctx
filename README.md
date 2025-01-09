@@ -1,5 +1,9 @@
 # slogw
 
+![CI](https://github.com/akm/slogw/actions/workflows/ci.yml/badge.svg)
+[![codecov](https://codecov.io/github/akm/slogw/graph/badge.svg?token=8KA0MWBH0F)](https://codecov.io/github/akm/slogw)
+![license](https://img.shields.io/github/license/akm/slogw)
+
 `slogw` means `slog wrapper`. It supports to wrap the Handle method of slog.Handler interface.
 `slogw` is pronounced `slog-wuh` .
 
