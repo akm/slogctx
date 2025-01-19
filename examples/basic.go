@@ -5,14 +5,14 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/akm/slogw"
+	"github.com/akm/slogctx"
 )
 
 func basic() {
 	type ctxKey1Type struct{}
 	var ctxKey1 = ctxKey1Type{}
 
-	slogw.Register(func(ctx context.Context, rec slog.Record) slog.Record {
+	slogctx.Register(func(ctx context.Context, rec slog.Record) slog.Record {
 		val, ok := ctx.Value(ctxKey1).(string)
 		if ok {
 			rec.Add("key1", val)
@@ -20,8 +20,8 @@ func basic() {
 		return rec
 	})
 
-	// Set the logger instantiated by slogw.New as the default logger.
-	slog.SetDefault(slogw.New(slog.NewTextHandler(os.Stdout, nil)))
+	// Set the logger instantiated by slogctx.New as the default logger.
+	slog.SetDefault(slogctx.New(slog.NewTextHandler(os.Stdout, nil)))
 
 	ctx0 := context.Background()
 	ctx1 := context.WithValue(ctx0, ctxKey1, "value1")

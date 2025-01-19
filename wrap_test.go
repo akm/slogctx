@@ -1,4 +1,4 @@
-package slogw
+package slogctx
 
 import (
 	"bytes"
