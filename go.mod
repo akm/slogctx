@@ -1,4 +1,4 @@
-module github.com/akm/slogw
+module github.com/akm/slogctx
 
 go 1.21.13
 

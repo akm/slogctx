@@ -5,7 +5,7 @@ import (
 	"log/slog"
 	"os"
 
-	slogctx "github.com/akm/slogw"
+	"github.com/akm/slogctx"
 )
 
 func basic() {
