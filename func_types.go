@@ -18,9 +18,9 @@ func PrepareConv(prepare RecordPrepare) SlogHandleConv {
 	}
 }
 
-type HandlerWrapFunc = func(slog.Handler) slog.Handler
+type HandlerConv = func(slog.Handler) slog.Handler
 
-type HandlerWrapFuncs []HandlerWrapFunc
+type HandlerWrapFuncs []HandlerConv
 
 func (fns HandlerWrapFuncs) Wrap(h slog.Handler) slog.Handler {
 	for i := len(fns) - 1; i >= 0; i-- {

@@ -10,7 +10,7 @@ func NewNamespace() *Namespace {
 	return &Namespace{}
 }
 
-func (f *Namespace) RegisterHandlerWrapFunc(fn HandlerWrapFunc) {
+func (f *Namespace) RegisterHandlerWrapFunc(fn HandlerConv) {
 	f.HandlerWrapFuncs = append(f.HandlerWrapFuncs, fn)
 }
 
@@ -26,7 +26,7 @@ func (f *Namespace) Register(fn RecordPrepare) {
 	f.RegisterHandlerPrepareFunc(fn)
 }
 
-func NewWrapFunc(fn SlogHandleConv) HandlerWrapFunc {
+func NewWrapFunc(fn SlogHandleConv) HandlerConv {
 	return func(h slog.Handler) slog.Handler {
 		handle := fn(h.Handle)
 		return &wrapper{Handler: h, handle: handle}
