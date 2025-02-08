@@ -42,7 +42,7 @@ func testAddAndNew(t *testing.T, addFunc func(RecordConv), newFunc func(h slog.H
 	}
 
 	type pattern struct {
-		ctx       context.Context
+		ctx       context.Context //nolint:containedctx
 		key1Value *string
 		name      string
 	}
