@@ -12,6 +12,8 @@ func TestDefault(t *testing.T) {
 		defaultNamespace = defaultBackup
 	}()
 
+	defaultHandlerConvsLen := len(defaultNamespace.HandlerConvs)
+
 	if Default() != defaultBackup {
 		t.Errorf("Default() should return defaultNamespace")
 	}
@@ -26,7 +28,7 @@ func TestDefault(t *testing.T) {
 	if len(ns.HandlerConvs) != 1 {
 		t.Errorf("Add() should append a handler converter to the namespace")
 	}
-	if len(defaultBackup.HandlerConvs) != 0 {
+	if len(defaultBackup.HandlerConvs) != defaultHandlerConvsLen {
 		t.Errorf("Add() should not affect the default namespace")
 	}
 }
