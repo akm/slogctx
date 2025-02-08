@@ -27,13 +27,13 @@ func NewHandlerConv(fn HandleConv) HandlerConv {
 
 type HandlerConvs []HandlerConv
 
-func (fns HandlerConvs) Wrap(h slog.Handler) slog.Handler {
-	for i := len(fns) - 1; i >= 0; i-- {
-		h = fns[i](h)
+func (s HandlerConvs) Wrap(h slog.Handler) slog.Handler {
+	for i := len(s) - 1; i >= 0; i-- {
+		h = s[i](h)
 	}
 	return h
 }
 
-func (fns HandlerConvs) New(h slog.Handler) *slog.Logger {
-	return slog.New(fns.Wrap(h))
+func (s HandlerConvs) New(h slog.Handler) *slog.Logger {
+	return slog.New(s.Wrap(h))
 }
