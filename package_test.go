@@ -7,13 +7,15 @@ import (
 )
 
 func TestPackageFunctions(t *testing.T) {
+	t.Parallel()
 	backupNamespace := defaultNamespace
-	defer func() { defaultNamespace = backupNamespace }()
+	t.Cleanup(func() { defaultNamespace = backupNamespace })
 	SetDefault(NewNamespace())
 	testAddAndNew(t, Add, New)
 }
 
 func TestDefault(t *testing.T) {
+	t.Parallel()
 	defaultBackup := defaultNamespace
 	defer func() {
 		defaultNamespace = defaultBackup
