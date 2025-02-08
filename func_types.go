@@ -10,7 +10,7 @@ type SlogHandleConv = func(SlogHandle) SlogHandle
 
 type RecordPrepare = func(context.Context, slog.Record) slog.Record
 
-func Prepare(prepare RecordPrepare) SlogHandleConv {
+func PrepareConv(prepare RecordPrepare) SlogHandleConv {
 	return func(fn SlogHandle) SlogHandle {
 		return func(ctx context.Context, rec slog.Record) error {
 			return fn(ctx, prepare(ctx, rec))
