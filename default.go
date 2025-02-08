@@ -12,7 +12,7 @@ func SetDefault(ns *Namespace) {
 	defaultNamespace = ns
 }
 
-func Register(f HandlePrepareFunc) {
+func Register(f RecordPrepare) {
 	defaultNamespace.Register(f)
 }
 

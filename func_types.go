@@ -8,9 +8,9 @@ import (
 type SlogHandle = func(context.Context, slog.Record) error
 type SlogHandleConv = func(SlogHandle) SlogHandle
 
-type HandlePrepareFunc = func(context.Context, slog.Record) slog.Record
+type RecordPrepare = func(context.Context, slog.Record) slog.Record
 
-func Prepare(prepare HandlePrepareFunc) SlogHandleConv {
+func Prepare(prepare RecordPrepare) SlogHandleConv {
 	return func(fn SlogHandle) SlogHandle {
 		return func(ctx context.Context, rec slog.Record) error {
 			return fn(ctx, prepare(ctx, rec))
