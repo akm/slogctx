@@ -20,6 +20,13 @@ func PrepareConv(prepare RecordPrepare) SlogHandleConv {
 
 type HandlerConv = func(slog.Handler) slog.Handler
 
+func NewHandlerConv(fn SlogHandleConv) HandlerConv {
+	return func(h slog.Handler) slog.Handler {
+		handle := fn(h.Handle)
+		return &wrapper{Handler: h, handle: handle}
+	}
+}
+
 type HandlerConvs []HandlerConv
 
 func (fns HandlerConvs) Wrap(h slog.Handler) slog.Handler {

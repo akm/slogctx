@@ -1,7 +1,5 @@
 package slogctx
 
-import "log/slog"
-
 type Namespace struct {
 	HandlerConvs
 }
@@ -20,11 +18,4 @@ func (f *Namespace) RegisterHandleFuncWrapFunc(fn SlogHandleConv) {
 
 func (f *Namespace) Register(fn RecordPrepare) {
 	f.RegisterHandleFuncWrapFunc(PrepareConv(fn))
-}
-
-func NewHandlerConv(fn SlogHandleConv) HandlerConv {
-	return func(h slog.Handler) slog.Handler {
-		handle := fn(h.Handle)
-		return &wrapper{Handler: h, handle: handle}
-	}
 }
