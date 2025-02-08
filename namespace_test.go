@@ -6,11 +6,14 @@ import (
 	"encoding/json"
 	"log/slog"
 	"testing"
-
-	"github.com/stretchr/testify/assert"
 )
 
-func TestWrapWithRegister(t *testing.T) {
+func TestNamespace(t *testing.T) {
+	defaultNamespace = NewNamespace()
+	testAddAndNew(t, defaultNamespace.AddRecordConv, defaultNamespace.New)
+}
+
+func testAddAndNew(t *testing.T, addFunc func(RecordConv), newFunc func(h slog.Handler) *slog.Logger) {
 	logging := func(ctx context.Context) {
 		slog.InfoContext(ctx, "test")
 	}
@@ -22,8 +25,7 @@ func TestWrapWithRegister(t *testing.T) {
 		return context.WithValue(ctx, ctxKey1, v)
 	}
 
-	defaultNamespace = NewNamespace()
-	Register(func(ctx context.Context, rec slog.Record) slog.Record {
+	addFunc(func(ctx context.Context, rec slog.Record) slog.Record {
 		val, ok := ctx.Value(ctxKey1).(string)
 		if ok {
 			rec.Add("key1", val)
@@ -33,7 +35,7 @@ func TestWrapWithRegister(t *testing.T) {
 
 	newLoggerAndBuf := func() (*slog.Logger, *bytes.Buffer) {
 		buf := bytes.NewBufferString("")
-		logger := New(slog.NewJSONHandler(buf, nil))
+		logger := newFunc(slog.NewJSONHandler(buf, nil))
 		return logger, buf
 	}
 
@@ -60,11 +62,17 @@ func TestWrapWithRegister(t *testing.T) {
 			d := map[string]any{}
 			t.Logf("buf: %s\n", buf.String())
 			err := json.Unmarshal(buf.Bytes(), &d)
-			assert.NoError(t, err)
+			if err != nil {
+				t.Errorf("json.Unmarshal() failed: %v", err)
+			}
 			if ptn.key1Value == nil {
-				assert.Nil(t, d["key1"])
+				if d["key1"] != nil {
+					t.Errorf("key1 should not be in the record")
+				}
 			} else {
-				assert.Equal(t, *ptn.key1Value, d["key1"])
+				if d["key1"] != *ptn.key1Value {
+					t.Errorf("key1 should be %v, but got %v", *ptn.key1Value, d["key1"])
+				}
 			}
 		})
 	}

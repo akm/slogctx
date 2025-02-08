@@ -16,6 +16,19 @@ $(GOLANGCI_LINT_CLI):
 lint: $(GOLANGCI_LINT_CLI)
 	golangci-lint run
 
+
+GODOC_CLI_VERSION=latest
+GODOC_CLI_MODULE=golang.org/x/tools/cmd/godoc
+GODOC_CLI=$(GOLANG_TOOL_PATH_TO_BIN)/bin/godoc
+$(GODOC_CLI):
+	go install $(GODOC_CLI_MODULE)@$(GODOC_CLI_VERSION)
+
+.PHONY: godoc
+godoc: $(GODOC_CLI)
+	@echo "Open http://localhost:6060/pkg/github.com/akm/slogctx"
+	godoc -http=:6060
+
+
 GO_TEST_OPTIONS?=
 
 .PHONY: test
@@ -37,3 +50,7 @@ test-with-coverage:
 test-coverage: $(GO_COVERAGE_PROFILE)
 	go tool cover -html=$(GO_COVERAGE_PROFILE) -o $(GO_COVERAGE_HTML)
 	@command -v open && open $(GO_COVERAGE_HTML) || echo "open $(GO_COVERAGE_HTML)"
+
+.PHONY: clean
+clean:
+	rm -f $(GO_COVERAGE_HTML) $(GO_COVERAGE_PROFILE)

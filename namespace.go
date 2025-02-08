@@ -2,33 +2,39 @@ package slogctx
 
 import "log/slog"
 
-type Namespace struct {
-	HandlerWrapFuncs
-}
+// Namespace is a slice of HandlerConv.
+type Namespace []HandlerConv
 
+// NewNamespace returns a new Namespace.
 func NewNamespace() *Namespace {
 	return &Namespace{}
 }
 
-func (f *Namespace) RegisterHandlerWrapFunc(fn HandlerWrapFunc) {
-	f.HandlerWrapFuncs = append(f.HandlerWrapFuncs, fn)
+// AddRecordConv appends a RecordConv function to the Namespace.
+func (x *Namespace) AddRecordConv(fn RecordConv) {
+	x.AddHandleConv(RecordHandleConv(fn))
 }
 
-func (f *Namespace) RegisterHandlerPrepareFunc(fn HandlePrepareFunc) {
-	f.RegisterHandleFuncWrapFunc(Prepare(fn))
+// AddHandleConv appends a HandleConv function to the Namespace.
+func (x *Namespace) AddHandleConv(fn HandleConv) {
+	x.AddHandlerConv(NewHandlerConv(fn))
 }
 
-func (f *Namespace) RegisterHandleFuncWrapFunc(fn HandleFuncWrapFunc) {
-	f.RegisterHandlerWrapFunc(f.newWrapFunc(fn))
+// AddHandlerConv appends a HandlerConv function to the Namespace.
+func (x *Namespace) AddHandlerConv(fn HandlerConv) {
+	*x = append(*x, fn)
 }
 
-func (f *Namespace) Register(fn HandlePrepareFunc) {
-	f.RegisterHandlerPrepareFunc(fn)
+// New returns a new Logger with the Namespace.
+func (x *Namespace) New(h slog.Handler) *slog.Logger {
+	return slog.New(x.Wrap(h))
 }
 
-func (*Namespace) newWrapFunc(fn HandleFuncWrapFunc) HandlerWrapFunc {
-	return func(h slog.Handler) slog.Handler {
-		handle := fn(h.Handle)
-		return &wrapper{Handler: h, handle: handle}
+// Wrap returns a new Handler with the Namespace.
+func (x *Namespace) Wrap(h slog.Handler) slog.Handler {
+	s := *x
+	for i := len(s) - 1; i >= 0; i-- {
+		h = s[i](h)
 	}
+	return h
 }
