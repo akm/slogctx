@@ -10,7 +10,7 @@ func NewNamespace() *Namespace {
 	return &Namespace{}
 }
 
-func (x *Namespace) Add(fn RecordConv) {
+func (x *Namespace) AddRecordConv(fn RecordConv) {
 	x.AddHandleConv(RecordHandleConv(fn))
 }
 

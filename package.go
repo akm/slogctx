@@ -13,7 +13,7 @@ func SetDefault(ns *Namespace) {
 }
 
 func Add(f RecordConv) {
-	defaultNamespace.Add(f)
+	defaultNamespace.AddRecordConv(f)
 }
 
 func New(h slog.Handler) *slog.Logger {

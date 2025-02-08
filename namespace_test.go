@@ -10,7 +10,7 @@ import (
 
 func TestNamespace(t *testing.T) {
 	defaultNamespace = NewNamespace()
-	testAddAndNew(t, defaultNamespace.Add, defaultNamespace.New)
+	testAddAndNew(t, defaultNamespace.AddRecordConv, defaultNamespace.New)
 }
 
 func testAddAndNew(t *testing.T, addFunc func(RecordConv), newFunc func(h slog.Handler) *slog.Logger) {
