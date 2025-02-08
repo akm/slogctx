@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func TestWrapWithRegister(t *testing.T) {
+func TestNamespace(t *testing.T) {
 	logging := func(ctx context.Context) {
 		slog.InfoContext(ctx, "test")
 	}
