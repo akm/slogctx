@@ -2,8 +2,6 @@ package slogctx
 
 import (
 	"testing"
-
-	"github.com/stretchr/testify/assert"
 )
 
 func TestDefault(t *testing.T) {
@@ -12,9 +10,13 @@ func TestDefault(t *testing.T) {
 		defaultNamespace = defaultBackup
 	}()
 
-	assert.Equal(t, defaultBackup, Default())
+	if Default() != defaultBackup {
+		t.Errorf("Default() should return defaultNamespace")
+	}
 
 	ns := NewNamespace()
 	SetDefault(ns)
-	assert.Equal(t, ns, Default())
+	if Default() != ns {
+		t.Errorf("Default() should return the namespace set by SetDefault()")
+	}
 }
