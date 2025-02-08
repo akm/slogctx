@@ -9,11 +9,13 @@ import (
 )
 
 func TestNamespace(t *testing.T) {
+	t.Parallel()
 	defaultNamespace = NewNamespace()
 	testAddAndNew(t, defaultNamespace.AddRecordConv, defaultNamespace.New)
 }
 
 func testAddAndNew(t *testing.T, addFunc func(RecordConv), newFunc func(h slog.Handler) *slog.Logger) {
+	t.Helper()
 	logging := func(ctx context.Context) {
 		slog.InfoContext(ctx, "test")
 	}
@@ -40,7 +42,7 @@ func testAddAndNew(t *testing.T, addFunc func(RecordConv), newFunc func(h slog.H
 	}
 
 	type pattern struct {
-		ctx       context.Context
+		ctx       context.Context //nolint:containedctx
 		key1Value *string
 		name      string
 	}
@@ -56,6 +58,7 @@ func testAddAndNew(t *testing.T, addFunc func(RecordConv), newFunc func(h slog.H
 	}
 	for _, ptn := range patterns {
 		t.Run(ptn.name, func(t *testing.T) {
+			t.Parallel()
 			logger, buf := newLoggerAndBuf()
 			slog.SetDefault(logger)
 			logging(ptn.ctx)

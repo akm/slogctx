@@ -7,13 +7,15 @@ import (
 )
 
 func TestPackageFunctions(t *testing.T) {
+	t.Parallel()
 	backupNamespace := defaultNamespace
-	defer func() { defaultNamespace = backupNamespace }()
+	t.Cleanup(func() { defaultNamespace = backupNamespace })
 	SetDefault(NewNamespace())
 	testAddAndNew(t, Add, New)
 }
 
 func TestDefault(t *testing.T) {
+	t.Parallel()
 	defaultBackup := defaultNamespace
 	defer func() {
 		defaultNamespace = defaultBackup
@@ -31,7 +33,7 @@ func TestDefault(t *testing.T) {
 		t.Errorf("Default() should return the namespace set by SetDefault()")
 	}
 
-	Add(func(ctx context.Context, rec slog.Record) slog.Record { return rec })
+	Add(func(_ context.Context, rec slog.Record) slog.Record { return rec })
 	if len(*ns) != 1 {
 		t.Errorf("Add() should append a handler converter to the namespace")
 	}
