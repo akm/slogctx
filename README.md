@@ -1,8 +1,11 @@
 # slogctx
 
-![CI](https://github.com/akm/slogctx/actions/workflows/ci.yml/badge.svg)
-[![codecov](https://codecov.io/github/akm/slogctx/graph/badge.svg?token=8KA0MWBH0F)](https://codecov.io/github/akm/slogctx)
-![license](https://img.shields.io/github/license/akm/slogctx)
+[![CI](https://github.com/akm/slogctx/actions/workflows/ci.yml/badge.svg)](https://github.com/akm/slogctx/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/github/akm/slogctx/graph/badge.svg?token=9BcanbSLut)](https://codecov.io/github/akm/slogctx)
+[![Enabled Linters](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fakm%2Fslogctx%2Frefs%2Fheads%2Fmain%2F.project.yaml&query=%24.linters&label=enabled%20linters&color=%2317AFC2)](.golangci.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/akm/slogctx)](https://goreportcard.com/report/github.com/akm/slogctx)
+[![Documentation](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)](https://pkg.go.dev/github.com/akm/slogctx)
+[![license](https://img.shields.io/github/license/akm/slogctx)](./LICENSE)
 
 `slogctx` means `slog and context`. It supports to wrap the Handle method of slog.Handler interface.
 
