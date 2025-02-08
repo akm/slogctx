@@ -19,7 +19,7 @@ func (x *Namespace) AddHandleConv(fn HandleConv) {
 }
 
 func (x *Namespace) AddHandlerConv(fn HandlerConv) {
-	*x.HandlerConvs = append(*x.HandlerConvs, fn)
+	x.HandlerConvs.Add(fn)
 }
 
 func (x *Namespace) New(h slog.Handler) *slog.Logger {

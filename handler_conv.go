@@ -37,3 +37,7 @@ func (s HandlerConvs) Wrap(h slog.Handler) slog.Handler {
 func (s HandlerConvs) New(h slog.Handler) *slog.Logger {
 	return slog.New(s.Wrap(h))
 }
+
+func (s *HandlerConvs) Add(fn HandlerConv) {
+	*s = append(*s, fn)
+}
