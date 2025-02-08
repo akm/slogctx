@@ -16,6 +16,6 @@ func (f *Namespace) AddHandleConv(fn HandleConv) {
 	f.AddHandlerConv(NewHandlerConv(fn))
 }
 
-func (f *Namespace) Register(fn RecordPrepare) {
+func (f *Namespace) Add(fn RecordPrepare) {
 	f.AddHandleConv(PrepareConv(fn))
 }

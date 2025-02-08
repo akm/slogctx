@@ -23,7 +23,7 @@ func TestWrapWithRegister(t *testing.T) {
 	}
 
 	defaultNamespace = NewNamespace()
-	Register(func(ctx context.Context, rec slog.Record) slog.Record {
+	Add(func(ctx context.Context, rec slog.Record) slog.Record {
 		val, ok := ctx.Value(ctxKey1).(string)
 		if ok {
 			rec.Add("key1", val)

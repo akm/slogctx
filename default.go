@@ -12,8 +12,8 @@ func SetDefault(ns *Namespace) {
 	defaultNamespace = ns
 }
 
-func Register(f RecordPrepare) {
-	defaultNamespace.Register(f)
+func Add(f RecordPrepare) {
+	defaultNamespace.Add(f)
 }
 
 func New(h slog.Handler) *slog.Logger {

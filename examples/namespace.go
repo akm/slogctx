@@ -13,7 +13,7 @@ func namespace() {
 	var ctxKey1 = ctxKey1Type{}
 
 	ns1 := slogctx.NewNamespace()
-	ns1.Register(func(ctx context.Context, rec slog.Record) slog.Record {
+	ns1.Add(func(ctx context.Context, rec slog.Record) slog.Record {
 		val, ok := ctx.Value(ctxKey1).(string)
 		if ok {
 			rec.Add("key1", val)

@@ -12,7 +12,7 @@ func basic() {
 	type ctxKey1Type struct{}
 	var ctxKey1 = ctxKey1Type{}
 
-	slogctx.Register(func(ctx context.Context, rec slog.Record) slog.Record {
+	slogctx.Add(func(ctx context.Context, rec slog.Record) slog.Record {
 		val, ok := ctx.Value(ctxKey1).(string)
 		if ok {
 			rec.Add("key1", val)
