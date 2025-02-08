@@ -24,20 +24,3 @@ func NewHandlerConv(fn HandleConv) HandlerConv {
 		return &wrapper{Handler: h, handle: handle}
 	}
 }
-
-type HandlerConvs []HandlerConv
-
-func (s HandlerConvs) Wrap(h slog.Handler) slog.Handler {
-	for i := len(s) - 1; i >= 0; i-- {
-		h = s[i](h)
-	}
-	return h
-}
-
-func (s HandlerConvs) New(h slog.Handler) *slog.Logger {
-	return slog.New(s.Wrap(h))
-}
-
-func (s *HandlerConvs) Add(fn HandlerConv) {
-	*s = append(*s, fn)
-}
