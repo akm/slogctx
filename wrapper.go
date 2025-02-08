@@ -7,7 +7,7 @@ import (
 
 type wrapper struct {
 	slog.Handler
-	handle HandleFunc
+	handle SlogHandle
 }
 
 var _ slog.Handler = (*wrapper)(nil)
