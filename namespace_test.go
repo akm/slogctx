@@ -13,7 +13,7 @@ func TestNamespace(t *testing.T) {
 	testAddAndNew(t, defaultNamespace.Add, defaultNamespace.New)
 }
 
-func testAddAndNew(t *testing.T, addFunc func(RecordPrepare), newFunc func(h slog.Handler) *slog.Logger) {
+func testAddAndNew(t *testing.T, addFunc func(RecordConv), newFunc func(h slog.Handler) *slog.Logger) {
 	logging := func(ctx context.Context) {
 		slog.InfoContext(ctx, "test")
 	}

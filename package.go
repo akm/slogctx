@@ -12,7 +12,7 @@ func SetDefault(ns *Namespace) {
 	defaultNamespace = ns
 }
 
-func Add(f RecordPrepare) {
+func Add(f RecordConv) {
 	defaultNamespace.Add(f)
 }
 
