@@ -6,6 +6,13 @@ import (
 	"testing"
 )
 
+func TestPackageFunctions(t *testing.T) {
+	backupNamespace := defaultNamespace
+	defer func() { defaultNamespace = backupNamespace }()
+	SetDefault(NewNamespace())
+	testAddAndNew(t, Add, New)
+}
+
 func TestDefault(t *testing.T) {
 	defaultBackup := defaultNamespace
 	defer func() {
