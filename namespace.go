@@ -11,7 +11,7 @@ func NewNamespace() *Namespace {
 }
 
 func (x *Namespace) Add(fn RecordConv) {
-	x.AddHandleConv(PrepareConv(fn))
+	x.AddHandleConv(RecordHandleConv(fn))
 }
 
 func (x *Namespace) AddHandleConv(fn HandleConv) {

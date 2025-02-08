@@ -10,7 +10,7 @@ type HandleConv = func(Handle) Handle
 
 type RecordConv = func(context.Context, slog.Record) slog.Record
 
-func PrepareConv(prepare RecordConv) HandleConv {
+func RecordHandleConv(prepare RecordConv) HandleConv {
 	return func(fn Handle) Handle {
 		return func(ctx context.Context, rec slog.Record) error {
 			return fn(ctx, prepare(ctx, rec))
