@@ -14,16 +14,12 @@ func (f *Namespace) RegisterHandlerWrapFunc(fn HandlerConv) {
 	f.HandlerConvs = append(f.HandlerConvs, fn)
 }
 
-func (f *Namespace) RegisterHandlerPrepareFunc(fn RecordPrepare) {
-	f.RegisterHandleFuncWrapFunc(PrepareConv(fn))
-}
-
 func (f *Namespace) RegisterHandleFuncWrapFunc(fn SlogHandleConv) {
 	f.RegisterHandlerWrapFunc(NewWrapFunc(fn))
 }
 
 func (f *Namespace) Register(fn RecordPrepare) {
-	f.RegisterHandlerPrepareFunc(fn)
+	f.RegisterHandleFuncWrapFunc(PrepareConv(fn))
 }
 
 func NewWrapFunc(fn SlogHandleConv) HandlerConv {
