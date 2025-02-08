@@ -12,7 +12,7 @@ func (f *Namespace) RegisterHandlerWrapFunc(fn HandlerConv) {
 	f.HandlerConvs = append(f.HandlerConvs, fn)
 }
 
-func (f *Namespace) RegisterHandleFuncWrapFunc(fn SlogHandleConv) {
+func (f *Namespace) RegisterHandleFuncWrapFunc(fn HandleConv) {
 	f.RegisterHandlerWrapFunc(NewHandlerConv(fn))
 }
 
