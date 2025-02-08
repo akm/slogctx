@@ -12,10 +12,10 @@ func (f *Namespace) RegisterHandlerWrapFunc(fn HandlerConv) {
 	f.HandlerConvs = append(f.HandlerConvs, fn)
 }
 
-func (f *Namespace) RegisterHandleFuncWrapFunc(fn HandleConv) {
+func (f *Namespace) AddHandleConv(fn HandleConv) {
 	f.RegisterHandlerWrapFunc(NewHandlerConv(fn))
 }
 
 func (f *Namespace) Register(fn RecordPrepare) {
-	f.RegisterHandleFuncWrapFunc(PrepareConv(fn))
+	f.AddHandleConv(PrepareConv(fn))
 }
