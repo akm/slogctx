@@ -10,22 +10,22 @@ func NewNamespace() *Namespace {
 	return &Namespace{}
 }
 
-func (f *Namespace) Add(fn RecordPrepare) {
-	f.AddHandleConv(PrepareConv(fn))
+func (x *Namespace) Add(fn RecordPrepare) {
+	x.AddHandleConv(PrepareConv(fn))
 }
 
-func (f *Namespace) AddHandleConv(fn HandleConv) {
-	f.AddHandlerConv(NewHandlerConv(fn))
+func (x *Namespace) AddHandleConv(fn HandleConv) {
+	x.AddHandlerConv(NewHandlerConv(fn))
 }
 
-func (f *Namespace) AddHandlerConv(fn HandlerConv) {
-	f.HandlerConvs = append(f.HandlerConvs, fn)
+func (x *Namespace) AddHandlerConv(fn HandlerConv) {
+	x.HandlerConvs = append(x.HandlerConvs, fn)
 }
 
-func (f *Namespace) Wrap(h slog.Handler) slog.Handler {
-	return f.HandlerConvs.Wrap(h)
+func (x *Namespace) Wrap(h slog.Handler) slog.Handler {
+	return x.HandlerConvs.Wrap(h)
 }
 
-func (f *Namespace) New(h slog.Handler) *slog.Logger {
-	return f.HandlerConvs.New(h)
+func (x *Namespace) New(h slog.Handler) *slog.Logger {
+	return x.HandlerConvs.New(h)
 }
