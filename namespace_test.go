@@ -21,7 +21,7 @@ func TestWrapWithRegister(t *testing.T) {
 	}
 
 	defaultNamespace = NewNamespace()
-	Add(func(ctx context.Context, rec slog.Record) slog.Record {
+	defaultNamespace.Add(func(ctx context.Context, rec slog.Record) slog.Record {
 		val, ok := ctx.Value(ctxKey1).(string)
 		if ok {
 			rec.Add("key1", val)
@@ -31,7 +31,7 @@ func TestWrapWithRegister(t *testing.T) {
 
 	newLoggerAndBuf := func() (*slog.Logger, *bytes.Buffer) {
 		buf := bytes.NewBufferString("")
-		logger := New(slog.NewJSONHandler(buf, nil))
+		logger := defaultNamespace.New(slog.NewJSONHandler(buf, nil))
 		return logger, buf
 	}
 
