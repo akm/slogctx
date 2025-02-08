@@ -5,13 +5,13 @@ import (
 	"log/slog"
 )
 
-type SlogHandle = func(context.Context, slog.Record) error
-type SlogHandleConv = func(SlogHandle) SlogHandle
+type Handle = func(context.Context, slog.Record) error
+type SlogHandleConv = func(Handle) Handle
 
 type RecordPrepare = func(context.Context, slog.Record) slog.Record
 
 func PrepareConv(prepare RecordPrepare) SlogHandleConv {
-	return func(fn SlogHandle) SlogHandle {
+	return func(fn Handle) Handle {
 		return func(ctx context.Context, rec slog.Record) error {
 			return fn(ctx, prepare(ctx, rec))
 		}
