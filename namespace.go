@@ -8,12 +8,12 @@ func NewNamespace() *Namespace {
 	return &Namespace{}
 }
 
-func (f *Namespace) RegisterHandlerWrapFunc(fn HandlerConv) {
+func (f *Namespace) AddHandlerConv(fn HandlerConv) {
 	f.HandlerConvs = append(f.HandlerConvs, fn)
 }
 
 func (f *Namespace) AddHandleConv(fn HandleConv) {
-	f.RegisterHandlerWrapFunc(NewHandlerConv(fn))
+	f.AddHandlerConv(NewHandlerConv(fn))
 }
 
 func (f *Namespace) Register(fn RecordPrepare) {
