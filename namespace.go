@@ -3,7 +3,7 @@ package slogctx
 import "log/slog"
 
 type Namespace struct {
-	HandlerWrapFuncs
+	HandlerConvs
 }
 
 func NewNamespace() *Namespace {
@@ -11,7 +11,7 @@ func NewNamespace() *Namespace {
 }
 
 func (f *Namespace) RegisterHandlerWrapFunc(fn HandlerConv) {
-	f.HandlerWrapFuncs = append(f.HandlerWrapFuncs, fn)
+	f.HandlerConvs = append(f.HandlerConvs, fn)
 }
 
 func (f *Namespace) RegisterHandlerPrepareFunc(fn RecordPrepare) {
