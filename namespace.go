@@ -22,10 +22,6 @@ func (x *Namespace) AddHandlerConv(fn HandlerConv) {
 	x.HandlerConvs = append(x.HandlerConvs, fn)
 }
 
-func (x *Namespace) Wrap(h slog.Handler) slog.Handler {
-	return x.HandlerConvs.Wrap(h)
-}
-
 func (x *Namespace) New(h slog.Handler) *slog.Logger {
 	return x.HandlerConvs.New(h)
 }
