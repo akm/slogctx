@@ -56,7 +56,7 @@ linters:
     - inamedparam
     - ineffassign
     - interfacebloat
-    # - intrange # intrange: this linter is disabled because the Go version (1.21.13) of your project is lower than Go 1.22 
+    - intrange
     - ireturn
     - lll
     - loggercheck
