@@ -6,11 +6,11 @@ import (
 )
 
 type SlogHandle = func(context.Context, slog.Record) error
-type HandleFuncWrapFunc = func(SlogHandle) SlogHandle
+type SlogHandleConv = func(SlogHandle) SlogHandle
 
 type HandlePrepareFunc = func(context.Context, slog.Record) slog.Record
 
-func Prepare(prepare HandlePrepareFunc) HandleFuncWrapFunc {
+func Prepare(prepare HandlePrepareFunc) SlogHandleConv {
 	return func(fn SlogHandle) SlogHandle {
 		return func(ctx context.Context, rec slog.Record) error {
 			return fn(ctx, prepare(ctx, rec))
