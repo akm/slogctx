@@ -6,20 +6,21 @@ import (
 	"testing"
 )
 
-func TestPackageFunctions(t *testing.T) {
-	t.Parallel()
+func TestPackageFunctions(t *testing.T) { //nolint:paralleltest,tparallel
+	// Dn't run this test in parallel.
+	// This test use package-level functins Add and New.
+	// So, they might be affected by other tests
+	// if they are run in parallel.
+
 	backupNamespace := defaultNamespace
 	t.Cleanup(func() { defaultNamespace = backupNamespace })
 	SetDefault(NewNamespace())
 	testAddAndNew(t, Add, New)
 }
 
-func TestDefault(t *testing.T) {
-	t.Parallel()
+func TestDefault(t *testing.T) { //nolint:paralleltest
 	defaultBackup := defaultNamespace
-	defer func() {
-		defaultNamespace = defaultBackup
-	}()
+	t.Cleanup(func() { defaultNamespace = defaultBackup })
 
 	defaultHandlerConvsLen := len(*defaultNamespace)
 
