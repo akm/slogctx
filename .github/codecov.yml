@@ -7,7 +7,3 @@ coverage:
     project:
       default:   # default is the status check's name, not default settings
         target: 100%
-
-# https://docs.codecov.com/docs/ignoring-paths
-ignore:
-  - "examples/*.go"
