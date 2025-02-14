@@ -51,6 +51,11 @@ time=2024-12-21T12:18:51.893+09:00 level=INFO msg=foo key1=value1
 
 See [example_test.go](./example_test.go) for more detail.
 
+## Alternatives
+
+- https://github.com/PumpkinSeed/slog-context
+  - Log all data in context.Context without specifying key
+
 ## CONTRIBUTING
 
 If you find a bug, typo, incorrect test, have an idea, or want to help with an existing issue, please create an issue or pull request.
