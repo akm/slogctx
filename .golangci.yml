@@ -91,7 +91,7 @@ linters:
     - stylecheck
     - tagalign
     - tagliatelle
-    - tenv
+    # - tenv
     - testableexamples
     - testifylint
     # - testpackage
@@ -101,6 +101,7 @@ linters:
     - unparam
     - unused
     - usestdlibvars
+    - usetesting
     # - varnamelen
     - wastedassign
     - whitespace
