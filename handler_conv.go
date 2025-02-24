@@ -42,8 +42,14 @@ type HandlerConv = func(slog.Handler) slog.Handler
 
 // NewHandlerConv returns a HandlerConv function from a HandleConv function.
 func NewHandlerConv(fn HandleConv) HandlerConv {
-	return func(h slog.Handler) slog.Handler {
-		handle := fn(h.Handle)
-		return &wrapper{impl: h, handle: handle}
+	return func(origHandler slog.Handler) slog.Handler {
+		origFactory := func(h slog.Handler) Handle {
+			return func(ctx context.Context, rec slog.Record) error {
+				return h.Handle(ctx, rec)
+			}
+		}
+		return newWrapper(origHandler, func(h slog.Handler) Handle {
+			return fn(origFactory)(h)
+		})
 	}
 }
