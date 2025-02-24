@@ -9,6 +9,7 @@ import (
 )
 
 func TestWrapperWithAttrsAndWithGroup(t *testing.T) {
+	t.Parallel()
 	buf := bytes.NewBuffer(nil)
 	handler0 := slog.NewJSONHandler(buf, &slog.HandlerOptions{
 		ReplaceAttr: func(_ []string, a slog.Attr) slog.Attr {
@@ -24,6 +25,7 @@ func TestWrapperWithAttrsAndWithGroup(t *testing.T) {
 		}
 	})
 	t.Run("WithAttrs", func(t *testing.T) {
+		t.Parallel()
 		buf.Reset()
 		l0 := slog.New(wrapper)
 		l1 := l0.With("key1", "value1")
@@ -42,6 +44,7 @@ func TestWrapperWithAttrsAndWithGroup(t *testing.T) {
 		}
 	})
 	t.Run("WithGroup", func(t *testing.T) {
+		t.Parallel()
 		buf.Reset()
 		l0 := slog.New(wrapper)
 		l1 := l0.WithGroup("group1").With("key1", "value1")
